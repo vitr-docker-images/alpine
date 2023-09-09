@@ -1,0 +1,29 @@
+name: Copy Docker Image to GHCR
+
+on:
+  push:
+    branches:
+      - 3.9.0  # Trigger this action when a push occurs on the main branch
+
+env:
+  ORIGINAL_IMAGE_NAME: "alpine:3.9"  # Replace with the Docker Hub image you want to copy
+  NEW_IMAGE_NAME: "ghcr.io/vitr-docker-images/alpine:3.9.0"  # Replace with your new image name
+
+jobs:
+  copy-docker-image:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Pull original Docker image
+      run: docker pull ${{ env.ORIGINAL_IMAGE_NAME }}
+
+    - name: Log in to GitHub Container Registry
+      run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u "${{ github.vitr }}" --password-stdin
+
+    - name: Tag and push new Docker image to GHCR
+      run: |
+        docker tag ${{ env.ORIGINAL_IMAGE_NAME }} ${{ env.NEW_IMAGE_NAME }}
+        docker push ${{ env.NEW_IMAGE_NAME }}
