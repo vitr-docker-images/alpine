@@ -1,5 +1,7 @@
 # Alpine Docker Image Copy
 
+[![GHCR-Badges](https://ghcr-badge.egpl.dev/vitr-docker-images/alpine/tags?color=%2344cc11&amp;ignore=latest&amp;n=3&amp;label=image+tags&amp;trim=)](https://ghcr-badge.egpl.dev/)
+
 This repository contains a copy of the Alpine Docker image. The image is stored on GitHub Container Registry (GHCR) and can be pulled using Docker CLI or used in a Docker Compose file.
 
 ## Why a Copy?
